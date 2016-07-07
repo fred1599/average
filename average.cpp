@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
 using namespace std;
 
@@ -9,35 +10,39 @@ bool functionSorting(pair<string, double> i, pair<string, double> j);
 
 int main(){
 
-    string matiere;
-    double moyenne;
-    vector<pair<string, double> > v;
-    double somme = 0;
     int counter = 0;
+    double moyenne, somme=0.0;
+
+    string matiere;
+
+    vector<pair<string, double> > v;
+
+    pair<string, double> p;
 
     while (true){
 
         cout << "Entrer la matière: ";
         getline(cin, matiere);
-        
+
+        cin.clear();
+
         if (matiere.empty()) break;
 
         cout << "Entrer la moyenne de " << matiere << ": ";
         cin >> moyenne;
 
-        if (moyenne == -1) break; // Pour sortir de la boucle infinie
+        cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
 
-        pair<string, double> infos;
-        infos.first = matiere;
-        infos.second = moyenne;
+        p.first = matiere;
+        p.second = moyenne;
 
-        v.push_back(infos);
+        v.push_back(p);
     }
 
     sort(v.begin(), v.end(), functionSorting);
 
     for (int i=0; i!=(int)v.size(); i++, counter++){
-        pair<string, double> p = v.at(i);
+        p = v.at(i);
         somme += p.second;
         cout << p.first << ": " << p.second << endl;
     }
