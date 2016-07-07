@@ -18,7 +18,9 @@ int main(){
     while (true){
 
         cout << "Entrer la matière: ";
-        cin >> matiere;
+        getline(cin, matiere);
+        
+        if (matiere.empty()) break;
 
         cout << "Entrer la moyenne de " << matiere << ": ";
         cin >> moyenne;
